@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import api from '../api'
 import { TicketCard, AddTicketModal } from '../components';
 import { useThemeContext } from '../context/TheemContext'
+
 const AllTicketSprint = () => {
     const { id } = useParams();
     const [data, setData] = useState<any[]>([])
@@ -29,7 +30,7 @@ const AllTicketSprint = () => {
                 Add a Ticket
             </button>
             <div className='flex  justify-center'>
-                <div className="grid grid-cols-3 gap-20 mt-10" >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10" >
                     {data.map(data => (
                         <div key={data._id}>
                             <TicketCard name={data.name} description={data.description} dates={data.date} />

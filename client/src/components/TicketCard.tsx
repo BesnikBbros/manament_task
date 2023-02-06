@@ -1,8 +1,8 @@
 import React from 'react'
 interface Props {
-  name: String;
-  description: String;
-  dates: String;
+  name: string;
+  description: string;
+  dates: string;
 }
 const TicketCard = ({ name, description, dates }: Props) => {
   const newDate = new Date(dates)

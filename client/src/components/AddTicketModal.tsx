@@ -2,6 +2,7 @@ import { useState,MouseEvent } from 'react'
 import { useThemeContext } from '../context/TheemContext';
 import { useParams } from 'react-router-dom';
 import api from '../api';
+import { toast } from "react-toastify";
 const AddTicketModal = () => {
     const { id } = useParams();
     const [name, setName] = useState<string>('');
@@ -12,8 +13,15 @@ const AddTicketModal = () => {
         event.preventDefault();
         const data = { name, description , sprintId: id};
         api("/api/ticket", "POST", data)
-            .then(response => console.log(response))
-            .catch(err => console.log(err))
+            .then(response => {
+                toggleOpen()
+                window.location.reload()
+            })
+            .catch(err => {
+                toast.error("Somthing went wrong", {
+                    className: "bg-red-500 text-white",
+                })
+            })
     };
 
     const handleOnClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -48,7 +56,7 @@ const AddTicketModal = () => {
                                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
                                         Description
                                     </label>
-                                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" type="text" onChange={e => setDescription(e.target.value)} />
+                                    <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" type="text" onChange={e => setDescription(e.target.value)} />
                                 </div>
                             </div>
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
